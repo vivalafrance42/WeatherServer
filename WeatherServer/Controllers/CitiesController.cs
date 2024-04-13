@@ -7,44 +7,61 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CountryModel;
 using WeatherServer.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WeatherServer.Controllers
 {
+    //This is the url that you will invoke from the client.
     [Route("api/[controller]")]
     [ApiController]
     public class CitiesController(CountriessourceContext context) : ControllerBase
     {
+
         // GET: api/Cities
         [HttpGet]
         public async Task<ActionResult<IEnumerable<City>>> GetCities()
         {
             return await context.Cities.ToListAsync();
         }
-        
-        [HttpGet ("GetPopulation")]
+
+        [Authorize]
+
+
+        // GET: api/Population returns the same thing not just 
+        [HttpGet("GetPopulation")]
         public async Task<ActionResult<IEnumerable<CountryPopulation>>> GetPopulation()
         {
-            IQueryable<CountryPopulation> x = from c in context.Countries
-                    select new CountryPopulation
+            //Old way to query old synax
+            //Await is like a query, because it
+            //var x = await (from c in context.Countries
+            //               select new CountryPopulation
+            //        {
+            //            Name = c.Name,
+            //            CountryId = c.CountryId,
+            //            //Population = c.Cities.Sum(t => t.Population)
+            //        }).ToListAsync();
+            //return x;
+            // New way old syntax
+            //    var x = from c in context.Countries
+            //            select new CountryPopulation
+            //            {
+            //                Name = c.Name,
+            //                CountryId = c.CountryId,
+            //                //Population = c.Cities.Sum(t => t.Population)
+            //            };
+            //    return await x.ToListAsync();
+            //}
+
+            IQueryable<CountryPopulation> x = context.Countries.
+                    Select(c => new CountryPopulation
                     {
                         Name = c.Name,
                         CountryId = c.CountryId,
                         Population = c.Cities.Sum(t => t.Population)
-                    };
+                    });
+
             return await x.ToListAsync();
         }
 
-        [HttpGet("GetPopulation2")]
-        public async Task<ActionResult<IEnumerable<CountryPopulation>>> GetPopulation2()
-        {
-            IQueryable<CountryPopulation> x = context.Countries.Select(c =>
-                                              new CountryPopulation
-                                              {
-                                                  Name = c.Name,
-                                                  CountryId = c.CountryId,
-                                                  Population = c.Cities.Sum(t => t.Population)
-                                              });
-            return await x.ToListAsync();
-        }
     }
 }

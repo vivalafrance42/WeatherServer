@@ -5,17 +5,19 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>false</InvariantGlobalization>
+    <UserSecretsId>c377b924-54f0-4664-8301-5614e2a4ecaf</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CsvHelper" Version="31.0.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.3">
+    <PackageReference Include="CsvHelper" Version="31.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>

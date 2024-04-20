@@ -24,12 +24,10 @@ namespace WeatherServer.Controllers
             return await context.Cities.ToListAsync();
         }
 
-        [Authorize]
-
-
+        //[Authorize]
         // GET: api/Population returns the same thing not just 
-        [HttpGet("GetPopulation")]
-        public async Task<ActionResult<IEnumerable<CountryPopulation>>> GetPopulation()
+        [HttpGet("GetPopulation({id}")]
+        public async Task<ActionResult<IEnumerable<CountryPopulation>>> GetPopulation(int id)
         {
             //Old way to query old synax
             //Await is like a query, because it
@@ -53,6 +51,7 @@ namespace WeatherServer.Controllers
             //}
 
             IQueryable<CountryPopulation> x = context.Countries.
+                Where(c => c.CountryId == id).
                     Select(c => new CountryPopulation
                     {
                         Name = c.Name,

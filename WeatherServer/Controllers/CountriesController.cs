@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CountryModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WeatherServer.Controllers
 {
@@ -13,7 +14,7 @@ namespace WeatherServer.Controllers
     [ApiController]
     public class CountriesController(CountriessourceContext context) : ControllerBase
     {
-
+        [Authorize]
         // GET: api/Countries
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Country>>> GetCountries()

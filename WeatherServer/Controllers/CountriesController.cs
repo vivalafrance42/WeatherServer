@@ -14,7 +14,7 @@ namespace WeatherServer.Controllers
     [ApiController]
     public class CountriesController(CountriessourceContext context) : ControllerBase
     {
-        [Authorize]
+        
         // GET: api/Countries
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Country>>> GetCountries()
@@ -36,7 +36,8 @@ namespace WeatherServer.Controllers
             return country;
         }
 
-        [HttpGet("Country Cities/{id}")] 
+        [HttpGet("CountryCities/{id}")]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<City>>> GetCitiesByCountry(int id)
         {
             return await context.Cities.Where(c => c.CountryId == id).ToListAsync();
